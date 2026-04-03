@@ -1,9 +1,12 @@
 package com.example.space_colony.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,8 @@ public class MissionControlFragment extends Fragment {
     private CrewAdapter adapter;
     private TextView missionLog;
     private ScrollView logScroll;
+    private Button btnLaunch;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Nullable
     @Override
@@ -43,11 +48,12 @@ public class MissionControlFragment extends Fragment {
 
         missionLog = view.findViewById(R.id.mission_log);
         logScroll = view.findViewById(R.id.log_scroll);
+        btnLaunch = view.findViewById(R.id.btn_launch);
 
         MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v ->
             requireActivity().getSupportFragmentManager().popBackStack());
-        view.findViewById(R.id.btn_launch).setOnClickListener(v -> launchMission());
+        btnLaunch.setOnClickListener(v -> launchMission());
 
         return view;
     }
@@ -58,19 +64,44 @@ public class MissionControlFragment extends Fragment {
         adapter.refresh(Storage.getInstance().getByLocation(Location.MISSION_CONTROL));
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        handler.removeCallbacksAndMessages(null);
+    }
+
     private void launchMission() {
         List<CrewMember> selected = adapter.getChecked();
         if (selected.size() < 2) {
             Toast.makeText(requireContext(), "Select exactly 2 crew members", Toast.LENGTH_SHORT).show();
             return;
         }
+
         List<String> log = MissionControl.runMission(selected.get(0), selected.get(1));
-        StringBuilder sb = new StringBuilder();
+
+        missionLog.setText("");
+        btnLaunch.setEnabled(false);
+
+        long delay = 0;
         for (String line : log) {
-            sb.append(line).append("\n");
+            long d = delay;
+            handler.postDelayed(() -> {
+                missionLog.append(line + "\n");
+                logScroll.post(() -> logScroll.fullScroll(View.FOCUS_DOWN));
+            }, d);
+            delay += delayFor(line);
         }
-        missionLog.setText(sb.toString());
-        logScroll.post(() -> logScroll.fullScroll(View.FOCUS_DOWN));
-        adapter.refresh(Storage.getInstance().getByLocation(Location.MISSION_CONTROL));
+
+        handler.postDelayed(() -> {
+            adapter.refresh(Storage.getInstance().getByLocation(Location.MISSION_CONTROL));
+            btnLaunch.setEnabled(true);
+        }, delay);
+    }
+
+    private long delayFor(String line) {
+        if (line.startsWith("===")) return 700;
+        if (line.startsWith("---")) return 500;
+        if (line.isEmpty())         return 200;
+        return 300;
     }
 }
