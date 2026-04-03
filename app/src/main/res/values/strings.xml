@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Space Colony</string>
+    <string name="app_title">Space Colony</string>
+
+    <string name="title_recruit">Recruit Crew Member</string>
+    <string name="title_quarters">Quarters</string>
+    <string name="title_simulator">Simulator</string>
+    <string name="title_mission_control">Mission Control</string>
+
+    <string name="hint_crew_name">Crew member name</string>
+    <string name="label_specialization">Select Specialization</string>
+    <string name="label_select_two">Select exactly 2 crew members for the mission</string>
+
+    <string name="spec_pilot">Pilot — Skill 5, Resilience 4, Energy 20</string>
+    <string name="spec_engineer">Engineer — Skill 6, Resilience 3, Energy 19</string>
+    <string name="spec_medic">Medic — Skill 7, Resilience 2, Energy 18</string>
+    <string name="spec_scientist">Scientist — Skill 8, Resilience 1, Energy 17</string>
+    <string name="spec_soldier">Soldier — Skill 9, Resilience 0, Energy 16</string>
+
+    <string name="btn_recruit">Recruit Crew</string>
+    <string name="btn_quarters">Quarters</string>
+    <string name="btn_simulator">Simulator</string>
+    <string name="btn_mission_control">Mission Control</string>
+    <string name="btn_save">Save Crew</string>
+    <string name="btn_confirm">Recruit</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_to_simulator">Move to Simulator</string>
+    <string name="btn_to_mission_control">Move to Mission Control</string>
+    <string name="btn_train">Train Selected (+1 XP)</string>
+    <string name="btn_send_home">Send Home</string>
+    <string name="btn_launch">Launch Mission</string>
+
+    <string name="crew_image_desc">Crew member specialization icon</string>
+</resources>
