@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_recruit"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/text_primary" />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_crew_name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_specialization"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/text_primary" />
+
+        <RadioGroup
+            android:id="@+id/specialization_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/radio_pilot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spec_pilot" />
+
+            <RadioButton
+                android:id="@+id/radio_engineer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spec_engineer" />
+
+            <RadioButton
+                android:id="@+id/radio_medic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spec_medic" />
+
+            <RadioButton
+                android:id="@+id/radio_scientist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spec_scientist" />
+
+            <RadioButton
+                android:id="@+id/radio_soldier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spec_soldier" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/stats_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_confirm"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_cancel"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
