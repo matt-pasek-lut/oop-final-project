@@ -33,6 +33,8 @@ public class QuartersFragment extends Fragment {
         adapter = new CrewAdapter(Storage.getInstance().getByLocation(Location.QUARTERS));
         rv.setAdapter(adapter);
 
+        view.findViewById(R.id.btn_home).setOnClickListener(v ->
+            requireActivity().getSupportFragmentManager().popBackStack());
         view.findViewById(R.id.btn_to_simulator).setOnClickListener(v -> moveSelected(Location.SIMULATOR));
         view.findViewById(R.id.btn_to_mission_control).setOnClickListener(v -> moveSelected(Location.MISSION_CONTROL));
 

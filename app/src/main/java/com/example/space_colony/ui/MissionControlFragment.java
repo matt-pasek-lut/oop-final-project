@@ -42,6 +42,8 @@ public class MissionControlFragment extends Fragment {
         missionLog = view.findViewById(R.id.mission_log);
         logScroll = view.findViewById(R.id.log_scroll);
 
+        view.findViewById(R.id.btn_home).setOnClickListener(v ->
+            requireActivity().getSupportFragmentManager().popBackStack());
         view.findViewById(R.id.btn_launch).setOnClickListener(v -> launchMission());
 
         return view;

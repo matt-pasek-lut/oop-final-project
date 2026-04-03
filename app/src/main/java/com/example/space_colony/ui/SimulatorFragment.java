@@ -33,6 +33,8 @@ public class SimulatorFragment extends Fragment {
         adapter = new CrewAdapter(Storage.getInstance().getByLocation(Location.SIMULATOR));
         rv.setAdapter(adapter);
 
+        view.findViewById(R.id.btn_home).setOnClickListener(v ->
+            requireActivity().getSupportFragmentManager().popBackStack());
         view.findViewById(R.id.btn_train).setOnClickListener(v -> trainSelected());
         view.findViewById(R.id.btn_send_home).setOnClickListener(v -> sendHome());
 

@@ -17,6 +17,7 @@
     <string name="spec_scientist">Scientist — Skill 8, Resilience 1, Energy 17</string>
     <string name="spec_soldier">Soldier — Skill 9, Resilience 0, Energy 16</string>
 
+    <string name="btn_home">← Home</string>
     <string name="btn_recruit">Recruit Crew</string>
     <string name="btn_quarters">Quarters</string>
     <string name="btn_simulator">Simulator</string>
