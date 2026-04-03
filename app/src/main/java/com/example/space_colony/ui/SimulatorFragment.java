@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import com.example.space_colony.R;
 import com.example.space_colony.logic.Storage;
 import com.example.space_colony.model.CrewMember;
@@ -33,7 +35,8 @@ public class SimulatorFragment extends Fragment {
         adapter = new CrewAdapter(Storage.getInstance().getByLocation(Location.SIMULATOR));
         rv.setAdapter(adapter);
 
-        view.findViewById(R.id.btn_home).setOnClickListener(v ->
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v ->
             requireActivity().getSupportFragmentManager().popBackStack());
         view.findViewById(R.id.btn_train).setOnClickListener(v -> trainSelected());
         view.findViewById(R.id.btn_send_home).setOnClickListener(v -> sendHome());
