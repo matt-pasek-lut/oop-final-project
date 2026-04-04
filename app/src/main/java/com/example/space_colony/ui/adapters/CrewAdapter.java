@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,10 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
             + "  HP " + m.getEnergy() + "/" + m.getMaxEnergy()
             + "  XP " + m.getExperience());
         holder.image.setImageResource(m.getImageResId());
+        holder.colorStrip.setBackgroundColor(specColor(m));
+        holder.energyBar.setMax(m.getMaxEnergy());
+        holder.energyBar.setProgress(m.getEnergy());
+
         holder.checkbox.setOnCheckedChangeListener(null);
         holder.checkbox.setChecked(checked.get(position, false));
         holder.checkbox.setOnCheckedChangeListener((btn, isChecked) -> {
@@ -56,6 +61,17 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
             }
             checked.put(pos, isChecked);
         });
+    }
+
+    private int specColor(CrewMember m) {
+        switch (m.getSpecializationName()) {
+            case "Pilot":     return 0xFF2196F3;
+            case "Engineer":  return 0xFFFFC107;
+            case "Medic":     return 0xFF4CAF50;
+            case "Scientist": return 0xFF9C27B0;
+            case "Soldier":   return 0xFFF44336;
+            default:          return 0xFF9E9E9E;
+        }
     }
 
     private int getCheckedCount() {
@@ -87,16 +103,20 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        final View colorStrip;
         final ImageView image;
         final TextView name, stats;
         final CheckBox checkbox;
+        final ProgressBar energyBar;
 
         ViewHolder(@NonNull View v) {
             super(v);
+            colorStrip = v.findViewById(R.id.color_strip);
             image = v.findViewById(R.id.crew_image);
             name = v.findViewById(R.id.crew_name);
             stats = v.findViewById(R.id.crew_stats);
             checkbox = v.findViewById(R.id.checkbox);
+            energyBar = v.findViewById(R.id.energy_bar);
         }
     }
 }
