@@ -22,6 +22,7 @@
     <string name="btn_simulator">Simulator</string>
     <string name="btn_mission_control">Mission Control</string>
     <string name="btn_save">Save Crew</string>
+    <string name="btn_load">Load Crew</string>
     <string name="btn_confirm">Recruit</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_to_simulator">Move to Simulator</string>

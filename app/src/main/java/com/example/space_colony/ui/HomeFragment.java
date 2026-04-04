@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.space_colony.R;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
             FileManager.save(requireContext());
             Toast.makeText(requireContext(), "Crew saved!", Toast.LENGTH_SHORT).show();
         });
+        view.findViewById(R.id.btn_load).setOnClickListener(v -> confirmLoad());
 
         return view;
     }
@@ -44,6 +46,26 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refreshCounts();
+    }
+
+    private void confirmLoad() {
+        boolean hasCrew = !Storage.getInstance().getAll().isEmpty();
+        if (hasCrew) {
+            new AlertDialog.Builder(requireContext())
+                .setTitle("Load saved crew?")
+                .setMessage("This will replace your current crew with the last saved state.")
+                .setPositiveButton("Load", (dialog, which) -> load())
+                .setNegativeButton("Cancel", null)
+                .show();
+        } else {
+            load();
+        }
+    }
+
+    private void load() {
+        FileManager.tryLoad(requireContext());
+        refreshCounts();
+        Toast.makeText(requireContext(), "Crew loaded!", Toast.LENGTH_SHORT).show();
     }
 
     private void refreshCounts() {
