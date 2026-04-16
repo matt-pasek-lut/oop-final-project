@@ -55,6 +55,8 @@ public class MissionControlFragment extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack());
         btnLaunch.setOnClickListener(v -> launchMission());
 
+        view.findViewById(R.id.btn_send_home).setOnClickListener(v -> sendSelectedHome());
+
         return view;
     }
 
@@ -68,6 +70,18 @@ public class MissionControlFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    private void sendSelectedHome() {
+        List<CrewMember> selected = adapter.getChecked();
+        if (selected.isEmpty()) {
+            Toast.makeText(requireContext(), "Select crew members to send home", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        for (CrewMember m : selected) {
+            m.setLocation(Location.QUARTERS);
+        }
+        adapter.refresh(Storage.getInstance().getByLocation(Location.MISSION_CONTROL));
     }
 
     private void launchMission() {
