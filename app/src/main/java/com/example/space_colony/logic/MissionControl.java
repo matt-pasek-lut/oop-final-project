@@ -7,6 +7,17 @@ import com.example.space_colony.model.Threat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stateless utility class that runs cooperative turn-based missions.
+ * <p>
+ * A mission pits two crew members against a system-generated {@link Threat}.
+ * Each round both crew members attack in sequence; the threat retaliates after
+ * each individual attack. A crew member whose energy reaches zero is permanently
+ * removed from {@link Storage}. Surviving members gain +1 experience on victory.
+ * <p>
+ * Threat difficulty scales with {@code missionCount}: skill, resilience, and
+ * energy all increase with each completed mission.
+ */
 public class MissionControl {
     private static int missionCount = 0;
 
@@ -14,6 +25,18 @@ public class MissionControl {
         "Asteroid Storm", "Fuel Leakage", "Solar Flares", "Alien Attack", "System Failure"
     };
 
+    /**
+     * Executes a full mission between two crew members and a generated threat.
+     * <p><
+     * Returns a list of log lines describing every round, suitable for
+     * animated display in {@link com.example.space_colony.ui.MissionControlFragment}.
+     * Lines prefixed with {@code ===} are section headers, {@code ---} are round
+     * separators, and empty strings are visual spacers.
+     *
+     * @param memberA first crew member (attacks first each round)
+     * @param memberB second crew member (attacks second each round)
+     * @return ordered list of log lines to be displayed in the mission log
+     */
     public static List<String> runMission(CrewMember memberA, CrewMember memberB) {
         List<String> log = new ArrayList<>();
         Threat threat = generateThreat();
@@ -82,6 +105,10 @@ public class MissionControl {
         return log;
     }
 
+    /**
+     * Generates a threat whose stats scale with the number of previously completed missions.
+     * Formula: skill = 4 + missionCount, resilience = 1 + missionCount/3, energy = 20 + missionCount*3.
+     */
     private static Threat generateThreat() {
         String name = THREAT_NAMES[missionCount % THREAT_NAMES.length];
         int skill = 4 + missionCount;

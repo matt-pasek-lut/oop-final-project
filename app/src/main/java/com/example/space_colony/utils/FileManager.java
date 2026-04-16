@@ -19,9 +19,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+/**
+ * Handles JSON-based persistence for crew state and mission progress.
+ * <p>
+ * The save file ({@code crew_save.json}) is stored in the app's private internal storage
+ * and contains the full crew roster plus the current mission count. It is written on
+ * explicit user request and read automatically at app startup.
+ */
 public class FileManager {
     private static final String FILE_NAME = "crew_save.json";
 
+    /**
+     * Serializes all crew members and the mission counter to {@code crew_save.json}.
+     * Each crew member is stored as a JSON object containing id, type, name,
+     * experience, current energy, and location.
+     *
+     * @param ctx Android context used to open the private output stream
+     */
     public static void save(Context ctx) {
         try {
             Storage storage = Storage.getInstance();
@@ -51,6 +65,14 @@ public class FileManager {
         }
     }
 
+    /**
+     * Loads crew state from {@code crew_save.json} if the file exists.
+     * Clears the current {@link Storage} contents before populating from the file,
+     * so this method replaces — rather than merges — the in-memory roster.
+     * Silently returns if no save file is found.
+     *
+     * @param ctx Android context used to resolve the private files directory
+     */
     public static void tryLoad(Context ctx) {
         File file = new File(ctx.getFilesDir(), FILE_NAME);
         if (!file.exists()) return;
